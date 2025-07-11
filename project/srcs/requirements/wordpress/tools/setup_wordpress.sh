@@ -10,9 +10,9 @@ if wp core is-installed --allow-root; then
 fi
 
 cd /var/www/html
-wp core download --alow-root
+wp core download --allow-root
 wp config create --dbname=${MYSQL_DATABASE} \
-	--dbuser=${MYSQEL_USER} \
+	--dbuser=${MYSQL_USER} \
 	--dbpass=${MYSQL_PASSWORD} \
 	--dbhost=mariadb \
 	--allow-root
