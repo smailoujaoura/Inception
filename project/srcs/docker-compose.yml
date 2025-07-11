@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  mariadb:
+    build: ./requirements/mariadb
+    volumes:
+      - /home/soujaour/data/db:/var/lib/mysql
+    env_file:
+      - .env
+    networks:
+      - inception
+    restart: always
+
+  wordpress:
+    build: ./requirements/wordpress
+    volumes:
+      - /home/soujaour/data/wp:/var/www/html
+    env_file:
+      - .env
+    depends_on:
+      - mariadb
+    networks:
+      - inception
+    restart: always
+  
+  nginx:
+    build: ./requirements/nginx
+    ports:
+      - "443:443"
+    volumes:
+      - /home/soujaour/data/wp:/var/www/html
+    depends_on:
+      - wordpress
+    networks:
+      - inception
+    restart: always
+
+networks:
+  inception:
+    driver: bridge

@@ -1,14 +1,17 @@
 FROM debian:bullseye
 
-RUN apt-get update && apt-get install -y \
-	php php-fpm php-mysql wget unzip \
-	&& apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update \
+	&& apt-get install -y php php-fpm php-mysql wget tar curl \
+	&& apt-get clean \
+	&& rm -rf /var/lib/apt/lists/*
+	
+# WORKDIR /var/www/html
+# RUN wget https://wordpress.org/latest.zip \
+# 	&& unzip latest.zip && mv wordpress/* . && rm -rf wordpress latest.zip
+# EXPOSE 9000
+	
+COPY ./tools /scripts
 
-WORKDIR /var/www/html
+RUN chmod +x /scripts/setup_wordpress.sh
 
-RUN wget https://wordpress.org/latest.zip \
-	&& unzip latest.zip && mv wordpress/* . && rm -rf wordpress latest.zip
-
-EXPOSE 9000
-
-CMD ["php-fpm", "-F"]
+ENTRYPOINT ["/scripts/setup_wordpress.sh"]
