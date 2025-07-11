@@ -22,4 +22,4 @@ COPY ./tools /scripts
 
 RUN chmod +x /scripts/setup_nginx.sh
 
-ENTRYPOINT ["/scripts/setup.sh"]
+ENTRYPOINT ["/scripts/setup_nginx.sh"]
