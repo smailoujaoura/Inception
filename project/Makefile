@@ -18,3 +18,7 @@ nuke: fclean
 	docker volume rm srcs_wordpress
 
 re: nuke all
+
+redo:
+	docker compose -f srcs/docker-compose.yml down
+	docker compose -f srcs/docker-compose.yml up --build

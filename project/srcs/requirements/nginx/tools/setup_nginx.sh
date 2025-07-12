@@ -7,6 +7,8 @@ openssl req -x509 -nodes -days 365 \
 	-out /etc/nginx/ssl/selfsigned.crt \
 	-subj "/CN=soujaour.42.fr"
 
-cp /scripts/default.conf /etc/nginx/sites-available/default
+cp /scripts/default /etc/nginx/sites-available/default.conf
+
+rm -f /etc/nginx/sites-enabled/default
 
 exec nginx -g "daemon off;"
