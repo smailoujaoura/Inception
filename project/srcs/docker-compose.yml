@@ -44,7 +44,7 @@ services:
     ports:
       - "443:443"
     volumes:
-      - /home/soujaour/data/wp:/var/www/html
+      - wordpress:/var/www/html
     depends_on:
       - wordpress
     networks:
