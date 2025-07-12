@@ -1,6 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 
-service mariadb start;
+mkdir -p /run/mysqld
+chown -R mysql:mysql /run/mysqld
+
+mysqld_safe &
 
 until mysqladmin ping --silent; do
 	echo "Waiting for MariaDB..."
@@ -15,4 +18,4 @@ mysql -e "FLUSH PRIVILEGES;"
 
 mysqladmin -u root -p"${MYSQL_ROOT_PASSWORD}" shutdown;
 
-exec mysqld;
+exec mysqld_safe;

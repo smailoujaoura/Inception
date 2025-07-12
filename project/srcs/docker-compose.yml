@@ -1,25 +1,43 @@
 services:
   mariadb:
     build: ./requirements/mariadb
+    ports:
+      - "3306:3306"
     volumes:
-      - /home/soujaour/data/db:/var/lib/mysql
-    env_file:
-      - .env
+      - mariadb:/var/lib/mysql
     networks:
       - inception
+    env_file:
+      - .env
+    environment:
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
     restart: always
 
   wordpress:
     build: ./requirements/wordpress
     volumes:
-      - /home/soujaour/data/wp:/var/www/html
+      - wordpress:/var/www/html
     env_file:
       - .env
+    environment:
+      - DOMAIN_NAME
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+      - MYSQL_DATABASE
+      - WP_ADMIN_USER
+      - WP_ADMIN_PASSWORD
+      - WP_USER
+      - WP_USER_PASSWORD
     depends_on:
       - mariadb
     networks:
       - inception
     restart: always
+    expose: ["9000"]
 
   nginx:
     build: ./requirements/nginx
@@ -36,3 +54,17 @@ services:
 networks:
   inception:
     driver: bridge
+
+volumes:
+  mariadb:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/soujaour/data/db
+      o: bind
+  wordpress:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/soujaour/data/wp
+      o: bind

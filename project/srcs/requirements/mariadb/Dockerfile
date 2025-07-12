@@ -5,11 +5,8 @@ RUN apt-get update \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
-# COPY default.cnf /etc/mysql/mariadb.conf.d/default.cnf
-# COPY init_maria.sh /usr/local/bin/init_maria.sh
-# EXPOSE 3306
-
-COPY ./tools /scripts
+COPY ./tools/setup_mariadb.sh /scripts/setup_mariadb.sh
+COPY ./tools/my.cnf /etc/mysql/my.cnf
 
 RUN chmod +x /scripts/setup_mariadb.sh
 
