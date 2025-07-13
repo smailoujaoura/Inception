@@ -7,11 +7,12 @@ until mysqladmin ping -h mariadb -u root -p"$MYSQL_ROOT_PASSWORD" --silent; do
 	sleep 5
 done
 
-cd /var/www/html
+curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+chmod +x wp-cli.phar
+mv wp-cli.phar /usr/local/bin/wp
+echo "listen = 9000" >> /etc/php/7.4/fpm/pool.d/www.conf
 
-sed -i 's|listen = /run/php/php7.4-fpm.sock|listen = 0.0.0.0:9000|' /etc/php/7.4/fpm/pool.d/www.conf
-sed -i 's|;listen.mode = 0660|listen.mode = 0660|' /etc/php/7.4/fpm/pool.d/www.conf
-sed -i 's|;listen.allowed_clients = 127.0.0.1|listen.allowed_clients = any|' /etc/php/7.4/fpm/pool.d/www.conf
+cd /var/www/html
 
 mkdir -p /run/php
 
@@ -40,5 +41,8 @@ wp core install \
 wp user create ${WP_USER} user@${DOMAIN_NAME} \
 	--user_pass=${WP_USER_PASSWORD} \
 	--allow-root
+
+chmod -R 775 /var/www/html
+chown -R www-data:www-data /var/www/html
 
 exec php-fpm7.4 -F
