@@ -5,9 +5,6 @@ all:
 down:
 	docker compose -f srcs/docker-compose.yml down
 
-clean:
-	echo "should clean just containers for example"
-
 fclean: down
 	docker system prune -af
 	sudo rm -rf /home/soujaour/data/db
@@ -21,4 +18,4 @@ re: nuke all
 
 redo:
 	docker compose -f srcs/docker-compose.yml down
-	docker compose -f srcs/docker-compose.yml up --build
+	docker compose -f srcs/docker-compose.yml up -d --build

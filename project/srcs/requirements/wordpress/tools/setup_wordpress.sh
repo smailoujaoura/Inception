@@ -45,4 +45,11 @@ wp user create ${WP_USER} user@${DOMAIN_NAME} \
 chmod -R 775 /var/www/html
 chown -R www-data:www-data /var/www/html
 
+wp config set WP_CACHE true --allow-root
+wp config set WP_REDIS_HOST redis --allow-root
+wp config set WP_REDIS_PORT 6379 --allow-root
+
+wp plugin install redis-cache --activate --allow-root
+wp redis enable --allow-root
+
 exec php-fpm7.4 -F

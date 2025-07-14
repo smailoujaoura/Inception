@@ -1,7 +1,7 @@
 FROM debian:bullseye
 
 RUN apt-get update \
-	&& apt-get install -y php php-fpm php-mysql wget tar curl unzip less mariadb-client \
+	&& apt-get install -y php php-fpm php-mysql wget tar curl unzip less mariadb-client php-redis \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
