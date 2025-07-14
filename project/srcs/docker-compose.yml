@@ -72,7 +72,25 @@ services:
       - inception
     ports:
       - "6379:6379"
-    restart: always  
+    restart: always
+
+  ftp:
+    build: ./requirements/bonus/ftp
+    container_name: ftp
+    env_file:
+      - .env
+    environment:
+      - FTP_USER
+      - FTP_PASSWORD
+    volumes:
+      - wordpress:/var/www/html
+    networks:
+      - inception
+    ports:
+      - "21:21"
+      - "21100-21110:21100-21110"
+    privileged: true
+    restart: always
 
 networks:
   inception:
