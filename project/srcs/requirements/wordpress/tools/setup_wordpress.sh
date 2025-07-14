@@ -16,6 +16,9 @@ cd /var/www/html
 
 mkdir -p /run/php
 
+chmod -R 775 /var/www/html
+chown -R www-data:www-data /var/www/html
+
 if wp core is-installed --allow-root --path=/var/www/html; then
     echo "WordPress is already installed."
 	wp config set WP_CACHE true --allow-root
