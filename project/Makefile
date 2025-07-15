@@ -1,5 +1,5 @@
 all:
-	mkdir -p /home/soujaour/data/db /home/soujaour/data/wp
+	mkdir -p /home/soujaour/data/db /home/soujaour/data/wp /home/soujaour/data/uptimer
 	docker compose -f srcs/docker-compose.yml up --build -d
 
 down:

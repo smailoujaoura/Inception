@@ -95,7 +95,6 @@ services:
     build: ./requirements/bonus/adminer
     image: adminer
     container_name: adminer
-    env_file: .env
     networks:
       - inception
     ports: 
@@ -103,6 +102,31 @@ services:
     depends_on: 
       - mariadb
     restart: always
+  
+  uptimer:
+    build: ./requirements/bonus/uptimer
+    image: uptimer
+    container_name: uptimer
+    networks:
+      - inception
+    ports:
+      - "3001:3001"
+    volumes:
+      - uptimer:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
+
+  portainer:
+    build: ./requirements/bonus/portainer
+    image: portainer
+    container_name: portainer
+    ports:
+      - 9443:9443
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - inception
+    restart: unless-stopped
 
 networks:
   inception:
@@ -120,4 +144,10 @@ volumes:
     driver_opts:
       type: none
       device: /home/soujaour/data/wp
+      o: bind
+  uptimer:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/soujaour/data/uptimer
       o: bind
