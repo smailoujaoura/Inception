@@ -77,8 +77,7 @@ services:
   ftp:
     build: ./requirements/bonus/ftp
     container_name: ftp
-    env_file:
-      - .env
+    env_file: .env
     environment:
       - FTP_USER
       - FTP_PASSWORD
@@ -90,6 +89,19 @@ services:
       - "21:21"
       - "21100-21110:21100-21110"
     privileged: true
+    restart: always
+
+  adminer:
+    build: ./requirements/bonus/adminer
+    image: adminer
+    container_name: adminer
+    env_file: .env
+    networks:
+      - inception
+    ports: 
+      - "8081:80"
+    depends_on: 
+      - mariadb
     restart: always
 
 networks:
