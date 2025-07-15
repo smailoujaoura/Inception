@@ -13,4 +13,4 @@ RUN curl -L https://downloads.portainer.io/ce2-25/portainer \
 
 EXPOSE 9443
 
-CMD ["/app/portainer", "--data", "/app/data", "--bind", ":9443"]
+CMD ["/app/portainer", "--bind", ":9443"]
