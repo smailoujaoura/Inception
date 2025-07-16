@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -ex
+set -x
 
 mkdir -p /var/run/vsftpd/empty
 chown root:root /var/run/vsftpd/empty

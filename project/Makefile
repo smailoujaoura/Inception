@@ -1,28 +1,29 @@
 all:
-	mkdir -p /home/soujaour/data/db
-	mkdir -p /home/soujaour/data/wp
-	mkdir -p /home/soujaour/data/uptimer
-	mkdir -p /home/soujaour/data/portainer
+	mkdir -p /home/${USER}/data/db
+	mkdir -p /home/${USER}/data/wp
+	mkdir -p /home/${USER}/data/uptimer
 	docker compose -f srcs/docker-compose.yml up --build -d
+
+up:
+	docker compose -f srcs/docker-compose.yml up --build -d
+
+stop:
+	docker compose -f srcs/docker-compose.yml stop
 
 down:
 	docker compose -f srcs/docker-compose.yml down
 
-fclean: down
-	docker system prune -af
-	sudo rm -rf /home/soujaour/data/db
-	sudo rm -rf /home/soujaour/data/wp
-	sudo rm -rf /home/soujaour/data/uptimer
-	sudo rm -rf /home/soujaour/data/portainer
+restart:
+	docker compose -f srcs/docker-compose.yml restart
 
-nuke: fclean
-	docker volume rm srcs_mariadb
-	docker volume rm srcs_wordpress
-	docker volume rm srcs_uptimer
-	docker volume rm srcs_portainer
-
-re: nuke all
-
-redo:
-	docker compose -f srcs/docker-compose.yml down
+re: down
 	docker compose -f srcs/docker-compose.yml up -d --build
+
+clean:
+	docker compose -f srcs/docker-compose.yml down --rmi all --volumes
+
+fclean: clean
+	docker system prune -af
+	sudo rm -rf /home/soujaour/data
+
+redo: fclean all

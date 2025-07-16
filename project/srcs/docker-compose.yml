@@ -1,6 +1,7 @@
 services:
   mariadb:
     build: ./requirements/mariadb
+    image: mariadb
     container_name: mariadb
     ports:
       - "3306:3306"
@@ -19,6 +20,7 @@ services:
 
   wordpress:
     build: ./requirements/wordpress
+    image: wordpress
     container_name: wordpress
     volumes:
       - wordpress:/var/www/html
@@ -41,10 +43,10 @@ services:
     networks:
       - inception
     restart: always
-    expose: ["9000"]
 
   nginx:
     build: ./requirements/nginx
+    image: nginx
     container_name: nginx
     ports:
       - "443:443"
@@ -58,6 +60,7 @@ services:
 
   static:
     build: ./requirements/bonus/static
+    image: static
     container_name: static
     ports:
       - "8080:80"
@@ -67,6 +70,7 @@ services:
 
   redis:
     build: ./requirements/bonus/redis
+    image: redis
     container_name: redis
     networks:
       - inception
@@ -76,6 +80,7 @@ services:
 
   ftp:
     build: ./requirements/bonus/ftp
+    image: ftp
     container_name: ftp
     env_file: .env
     environment:
@@ -118,30 +123,28 @@ services:
 
 networks:
   inception:
+    name: inception
     driver: bridge
 
 volumes:
   mariadb:
+    name: mariadb
     driver: local
     driver_opts:
       type: none
       device: /home/soujaour/data/db
       o: bind
   wordpress:
+    name: wordpress
     driver: local
     driver_opts:
       type: none
       device: /home/soujaour/data/wp
       o: bind
   uptimer:
+    name: uptimer
     driver: local
     driver_opts:
       type: none
       device: /home/soujaour/data/uptimer
-      o: bind
-  portainer:
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/soujaour/data/portainer
       o: bind

@@ -1,10 +1,8 @@
 FROM debian:bullseye
 
-RUN apt-get update \
-	&& apt-get install -y --no-install-recommends redis-server \
-	&& apt-get clean \
-	&& rm -rf /var/lib/apt/lists/*
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends redis-server
+RUN apt-get clean
+RUN rm -rf /var/lib/apt/lists/*
 
-EXPOSE 6379
-
-ENTRYPOINT ["redis-server", "--protected-mode", "no"]
+CMD ["redis-server", "--protected-mode", "no"]
