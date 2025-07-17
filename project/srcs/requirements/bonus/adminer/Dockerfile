@@ -1,11 +1,10 @@
 FROM debian:bullseye
 
 RUN apt-get update
-RUN apt-get install -y apache2 php php-mysql curl
+RUN apt-get install -y php adminer
 RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/*
 
-RUN curl -L -o /var/www/html/index.php https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1.php
-RUN rm /var/www/html/index.html
+RUN mv /usr/share/adminer/adminer.php /usr/share/adminer/index.php
 
-CMD ["apachectl", "-D", "FOREGROUND"]
+CMD ["php", "-S", "0.0.0.0:80", "-t", "/usr/share/adminer"]

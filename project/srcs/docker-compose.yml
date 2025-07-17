@@ -1,7 +1,7 @@
 services:
   mariadb:
     build: ./requirements/mariadb
-    image: mariadb
+    image: mariadb:soujaour
     container_name: mariadb
     expose:
       - 3306
@@ -20,7 +20,7 @@ services:
 
   wordpress:
     build: ./requirements/wordpress
-    image: wordpress
+    image: wordpress:soujaour
     container_name: wordpress
     volumes:
       - wordpress:/var/www/html
@@ -36,7 +36,6 @@ services:
       - WP_ADMIN_PASSWORD
       - WP_USER
       - WP_USER_PASSWORD
-      - REDIS_HOST=redis
     depends_on:
       - mariadb
       - redis
@@ -48,7 +47,7 @@ services:
 
   nginx:
     build: ./requirements/nginx
-    image: nginx
+    image: nginx:soujaour
     container_name: nginx
     ports:
       - "443:443"
@@ -62,7 +61,7 @@ services:
 
   static:
     build: ./requirements/bonus/static
-    image: static
+    image: static:soujaour
     container_name: static
     ports:
       - "8080:80"
@@ -72,7 +71,7 @@ services:
 
   redis:
     build: ./requirements/bonus/redis
-    image: redis
+    image: redis:soujaour
     container_name: redis
     networks:
       - inception
@@ -82,7 +81,7 @@ services:
 
   ftp:
     build: ./requirements/bonus/ftp
-    image: ftp
+    image: ftp:soujaour
     container_name: ftp
     env_file: .env
     environment:
@@ -95,12 +94,11 @@ services:
     ports:
       - "21:21"
       - "21100-21110:21100-21110"
-    privileged: true
     restart: always
 
   adminer:
     build: ./requirements/bonus/adminer
-    image: adminer
+    image: adminer:soujaour
     container_name: adminer
     networks:
       - inception
@@ -112,7 +110,7 @@ services:
   
   uptimer:
     build: ./requirements/bonus/uptimer
-    image: uptimer
+    image: uptimer:soujaour
     container_name: uptimer
     networks:
       - inception

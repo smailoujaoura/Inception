@@ -1,7 +1,7 @@
 FROM debian:bullseye
 
 RUN apt-get update
-RUN apt-get install -y vsftpd openssl
+RUN apt-get install -y vsftpd
 RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/*
 

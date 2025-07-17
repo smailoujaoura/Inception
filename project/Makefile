@@ -1,7 +1,7 @@
 all:
-	mkdir -p /home/${USER}/data/db
-	mkdir -p /home/${USER}/data/wp
-	mkdir -p /home/${USER}/data/uptimer
+	mkdir -p /home/soujaour/data/db
+	mkdir -p /home/soujaour/data/wp
+	mkdir -p /home/soujaour/data/uptimer
 	docker compose -f srcs/docker-compose.yml up --build -d
 
 up:
