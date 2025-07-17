@@ -3,8 +3,8 @@ services:
     build: ./requirements/mariadb
     image: mariadb
     container_name: mariadb
-    ports:
-      - "3306:3306"
+    expose:
+      - 3306
     volumes:
       - mariadb:/var/lib/mysql
     networks:
@@ -42,6 +42,8 @@ services:
       - redis
     networks:
       - inception
+    expose:
+      - 9000
     restart: always
 
   nginx:
