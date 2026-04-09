@@ -238,23 +238,6 @@ This project demonstrates understanding across:
 
 ---
 
-## Suggested Evidence To Add (Optional)
-
-If you want this README to stand out even more, add screenshots in a future `docs/images/` folder:
-
-- WordPress home over HTTPS
-- Adminer connected to MariaDB
-- Uptime Kuma dashboard with monitored services
-- `docker compose ps` output showing healthy multi-service stack
-
-Then embed them like:
-
-```md
-![WordPress HTTPS](docs/images/wp-https.png)
-```
-
----
-
 ## Final Reflection
 
 Inception was a shift from "writing code" to "engineering a platform."  
